@@ -22,64 +22,65 @@ def show_prdcts(productlist):
         print(str(i) + '.', obj.name, obj.price)
 
 
-
-#filename = ''
+#объявление переменной файла + цикл проверки на заполненность
+filename = ''
 while filename == '':
     filename = input('Введите имя файла: ')
 else:
     
     print("Имя введеого файла " + filename)
-
+#"пробуем" открыть файл
 try:
     f= open(filename , 'r+', encoding='utf-8')
-    #veg = 0
-    for line in f:
-        #veg += 1
-        
-        line = line.replace('\n', '')
-        line = line.split(' — ')
-        add_to_list(line[0],line[1])
+    
+    for line in f: #считываем построчно файл
+        line = line.replace('\n', '') #удаляем символ новой строки путем замены на пустое значение
+        line = line.split(' — ') #делим значения по разделителю ' — '
+        add_to_list(line[0],line[1]) # добавляем объект в список 
         
 
 
-
+    #Выбираем действие для работы со списком
     action = ''
-    while action != '6':
-        print('\n1. Добавить в список\n2. Изменить запись в списке\n3. Удалить из списка\n4. Вычесть общую сумму\n5. Посмотреть список\n6.Выйти')
-        action = input("Выберете нужное действие: ")
-        if action == '1':
+    while action != '6': #Цикл для работы со списком до тех пор пока не будет введено "6"
+        print('\n1. Добавить продукт в список\n2. Изменить продукт в списке\n3.'+ 
+        +'Удалить продукт из списка\n4. Расчитать общую сумму продуктов \n5. Посмотреть список продуктов\n6. Выйти')
+        action = input("Выберите нужное действие: ")
+        
+        if action == '1': #Если вводим 1 "Добавить продукт в список"
             add_to_list(input('Введите название продукта: '),input('Введите цену: '))
         
-        elif action == '2':
+        elif action == '2': #Если вводим 2 "Изменить продукт в списке"
             show_prdcts(prdcts)
-            choicenum = int(input("Выбери порядковый номер позиции для изменения: "))
+            choicenum = int(input("Выберите порядковый номер позиции для изменения: "))
             choicenum -= 1
-            prdcts[choicenum].name = input("введите название: ")
-            prdcts[choicenum].price = input("введите цену: ")
+            prdcts[choicenum].name = input("Введите название: ")
+            prdcts[choicenum].price = input("Введите цену: ")
     
-        elif action == '3':
+        elif action == '3': #Если вводим 3 "Удалить продукт из списка"
             show_prdcts(prdcts)
-            choicenum = int(input("Выбери порядковый номер позиции для удаления: "))
+            choicenum = int(input("Выберите порядковый номер позиции для удаления: "))
             choicenum -= 1
             prdcts.pop(choicenum)
         
-        elif action == '4':
+        elif action == '4': #Если вводим 4 "Расчитать общую сумму продуктов"
             sum = 0
             for obj in prdcts:
                 sum += int(obj.price)
             print('Сумма = ', str(sum))
         
-        elif action == '5':
+        elif action == '5': #Если вводим 5 "Посмотреть список продуктов"
             show_prdcts(prdcts)
 
-    f.seek(0,0)
-    for vegi in prdcts:
-        rowtofile = str(vegi.name)+ ' — ' + str(vegi.price)+"\n"
+    f.seek(0,0) #возращаем курсор в начало списка
+    for prdc in prdcts: #для каждого элемента списка формируем строку по формату исходной и записываем в файл
+        rowtofile = str(prdc.name)+ ' — ' + str(prdc.price) + "\n"
         f.write(rowtofile)
-    f.close()
+    f.close() #закрываем файл
 
 
+#исключение в случае, если файл не найден, программа завершается и выводит сообщение
 except FileNotFoundError:
      print('Файл с таким именем не найден, повторите попытку.')
 
-#input()
+#input() #пустой инпут, для отладки
