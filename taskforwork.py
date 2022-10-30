@@ -10,9 +10,11 @@ class Products:
 
 prdcts = list() #пустой список, в котором будут храниться объекты продуктов
 
+#функция для добавления нового объекта продукта в список
 def add_to_list(name, price):
     prdcts.append(Products(name,price))
 
+# функция отображения объектов списка с порядковыми номерами 
 def show_prdcts(productlist):
     i =0
     for obj in productlist:
@@ -21,7 +23,7 @@ def show_prdcts(productlist):
 
 
 
-filename = ''
+#filename = ''
 while filename == '':
     filename = input('Введите имя файла: ')
 else:
@@ -78,6 +80,6 @@ try:
 
 
 except FileNotFoundError:
-     print('Файл с таким именем не найден, повторите снова.')
+     print('Файл с таким именем не найден, повторите попытку.')
 
-input()
+#input()
