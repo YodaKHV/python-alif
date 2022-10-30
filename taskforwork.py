@@ -1,21 +1,21 @@
 import os
 
-#создание класса для овощей
-class Vegitable:
+#создание класса для продуктов
+class Products:
  
     def __init__(self, name, price):
         self.name = name    # название 
         self.price = price  # цена
 
 
-vegtbls = list() #пустой список, в котором будут храниться объекты овощей
+prdcts = list() #пустой список, в котором будут храниться объекты овощей
 
 def add_to_list(name, price):
-    vegtbls.append(Vegitable(name,price))
+    prdcts.append(Products(name,price))
 
-def show_vegtbls(veglist):
+def show_prdcts(productlist):
     i =0
-    for obj in veglist:
+    for obj in productlist:
         i +=1
         print(str(i) + '.', obj.name, obj.price)
 
@@ -29,7 +29,7 @@ else:
     print("Имя введеого файла " + filename)
 
 try:
-    f= open(filename , 'r', encoding='utf-8')
+    f= open(filename , 'r+', encoding='utf-8')
     #veg = 0
     for line in f:
         #veg += 1
@@ -46,29 +46,35 @@ try:
         print('\n1. Добавить в список\n2. Изменить запись в списке\n3. Удалить из списка\n4. Вычесть общую сумму\n5. Посмотреть список\n6.Выйти')
         action = input("Выберете нужное действие: ")
         if action == '1':
-            add_to_list(input('Введите название овоща: '),input('Введите цену: '))
+            add_to_list(input('Введите название продукта: '),input('Введите цену: '))
         
         elif action == '2':
-            show_vegtbls(vegtbls)
+            show_prdcts(prdcts)
             choicenum = int(input("Выбери порядковый номер позиции для изменения: "))
             choicenum -= 1
-            vegtbls[choicenum].name = input("введите название: ")
-            vegtbls[choicenum].price = input("введите цену: ")
+            prdcts[choicenum].name = input("введите название: ")
+            prdcts[choicenum].price = input("введите цену: ")
     
         elif action == '3':
-            show_vegtbls(vegtbls)
+            show_prdcts(prdcts)
             choicenum = int(input("Выбери порядковый номер позиции для удаления: "))
             choicenum -= 1
-            vegtbls.pop(choicenum)
+            prdcts.pop(choicenum)
         
         elif action == '4':
             sum = 0
-            for obj in vegtbls:
+            for obj in prdcts:
                 sum += int(obj.price)
             print('Сумма = ', str(sum))
         
         elif action == '5':
-            show_vegtbls(vegtbls)
+            show_prdcts(prdcts)
+
+
+    for vegi in prdcts:
+        f.write(vegi.name, ' — ',vegi.price)
+    f.close()
+
 
 except FileNotFoundError:
      print('Файл с таким именем не найден, повторите снова.')
