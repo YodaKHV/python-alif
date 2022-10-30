@@ -1,5 +1,4 @@
 import os
-from secrets import choice
 
 #создание класса для овощей
 class Vegitable:
@@ -14,8 +13,11 @@ vegtbls = list() #пустой список, в котором будут хра
 def add_to_list(name, price):
     vegtbls.append(Vegitable(name,price))
 
-
-
+def show_vegtbls(veglist):
+    i =0
+    for obj in veglist:
+        i +=1
+        print(str(i) + '.', obj.name, obj.price)
 
 
 
@@ -35,47 +37,40 @@ try:
         line = line.replace('\n', '')
         line = line.split(' — ')
         add_to_list(line[0],line[1])
-        print(line)
         
+
+
+
+    action = ''
+    while action != '6':
+        print('\n1. Добавить в список\n2. Изменить запись в списке\n3. Удалить из списка\n4. Вычесть общую сумму\n5. Посмотреть список\n6.Выйти')
+        action = input("Выберете нужное действие: ")
+        if action == '1':
+            add_to_list(input('Введите название овоща: '),input('Введите цену: '))
+        
+        elif action == '2':
+            show_vegtbls(vegtbls)
+            choicenum = int(input("Выбери порядковый номер позиции для изменения: "))
+            choicenum -= 1
+            vegtbls[choicenum].name = input("введите название: ")
+            vegtbls[choicenum].price = input("введите цену: ")
+    
+        elif action == '3':
+            show_vegtbls(vegtbls)
+            choicenum = int(input("Выбери порядковый номер позиции для удаления: "))
+            choicenum -= 1
+            vegtbls.pop(choicenum)
+        
+        elif action == '4':
+            sum = 0
+            for obj in vegtbls:
+                sum += int(obj.price)
+            print('Сумма = ', str(sum))
+        
+        elif action == '5':
+            show_vegtbls(vegtbls)
+
 except FileNotFoundError:
      print('Файл с таким именем не найден, повторите снова.')
-
-
-action = ''
-while action != '6':
-    print('\n1. Добавить в список\n2. Изменить запись в списке\n3. Удалить из списка\n4. Вычесть общую сумму\n5. Посмотреть список\n6.Выйти')
-    action = input("Выберете нужное действие: ")
-    if action == '1':
-        add_to_list(input('Введите название овоща: '),input('Введите цену: '))
-    elif action == '2':
-        i =0
-        for obj in vegtbls:
-            i +=1
-            print(str(i) + '.', obj.name, obj.price)
-        choice = int(input("Выбери порядковый номер позиции для изменения: "))
-        choice -= 1
-        vegtbls[choice].name = input("введите название: ")
-        vegtbls[choice].price = input("введите цену: ")
-    
-    elif action == '3':
-        i =0
-        for obj in vegtbls:
-            i +=1
-            print(str(i) + '.', obj.name, obj.price)
-        choice = int(input("Выбери порядковый номер позиции для удаления: "))
-        choice -= 1
-        vegtbls.pop(choice)
-
-
-    elif action == '5':
-        for obj in vegtbls:
-            print(obj.name, obj.price)
-    elif action == '4':
-        sum = 0
-        for obj in vegtbls:
-            sum += int(obj.price)
-        print('Сумма = ', str(sum))
-
-
 
 input()
