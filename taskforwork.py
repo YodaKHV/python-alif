@@ -56,6 +56,17 @@ while action != '6':
         choice -= 1
         vegtbls[choice].name = input("введите название: ")
         vegtbls[choice].price = input("введите цену: ")
+    
+    elif action == '3':
+        i =0
+        for obj in vegtbls:
+            i +=1
+            print(str(i) + '.', obj.name, obj.price)
+        choice = int(input("Выбери порядковый номер позиции для удаления: "))
+        choice -= 1
+        vegtbls.pop(choice)
+
+
     elif action == '5':
         for obj in vegtbls:
             print(obj.name, obj.price)
