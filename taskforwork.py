@@ -8,7 +8,7 @@ class Products:
         self.price = price  # цена
 
 
-prdcts = list() #пустой список, в котором будут храниться объекты овощей
+prdcts = list() #пустой список, в котором будут храниться объекты продуктов
 
 def add_to_list(name, price):
     prdcts.append(Products(name,price))
@@ -70,9 +70,10 @@ try:
         elif action == '5':
             show_prdcts(prdcts)
 
-
+    f.seek(0,0)
     for vegi in prdcts:
-        f.write(vegi.name, ' — ',vegi.price)
+        rowtofile = str(vegi.name)+ ' — ' + str(vegi.price)+"\n"
+        f.write(rowtofile)
     f.close()
 
 
